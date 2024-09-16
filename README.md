@@ -1,3 +1,4 @@
+# Aviso la rama es master, no main
 #  Temas a definir:
 ##  **Nombre del grupo**
 ##  **Devición de tareas**
