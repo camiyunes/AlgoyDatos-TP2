@@ -8,5 +8,5 @@
 ## Cosas ya definidas:
 
 
-## probando cambios y clave ssh
+## Recuerde usar SSH
 
