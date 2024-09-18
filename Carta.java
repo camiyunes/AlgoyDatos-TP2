@@ -17,5 +17,10 @@ public class Carta {
 		return prox;
 	}
 	
+	public void setProximo(Carta prox) {
+		this.proximo = prox;
+	}
+	
+	
 	
 }

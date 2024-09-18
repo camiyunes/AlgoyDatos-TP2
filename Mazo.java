@@ -5,11 +5,10 @@ public class Mazo {
 	private Carta ultimo = null;
 	private int cantidad = 0;
 	
-	public Mazo(int cantidadDeCartas) throws Exception {
-		if (cantidadDeCartas <= 0) {
-			throw new Exception("El mazo debe tener más de 0 cartas");
-		}
-		
+	public Mazo(int cantidadDeCartas) {
+		this.primero = null;
+		this.ultimo = null;
+		this.cantidad = 0;
 	}
 	
 	public void agregarCarta(Carta carta) {
@@ -18,11 +17,30 @@ public class Mazo {
 				this.ultimo = carta;
 				this.primero = carta;
 			} else {
-				carta.getProximo() = this.primero;
+				carta.setProximo(this.primero);
 				this.primero = carta;
 			}
 		}
-		carta.getProximo() = this.primero;
+		carta.setProximo(this.primero);
 		this.primero = carta;
+		this.cantidad += 1;
+	}
+	
+	public Carta sacarCarta() throws Exception {
+		Carta res = null;
+		if (this.primero == this.ultimo) {
+			if (this.primero == null) {
+				throw new Exception("El mazo está vacío");
+			} else {
+				res = this.primero;
+				this.primero = null;
+				this.ultimo = null;
+			}
+		} else {
+			res = this.primero;
+			this.primero = res.getProximo();
+		}
+		this.cantidad -= 1;
+		return res;
 	}
 }
