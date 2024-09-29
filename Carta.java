@@ -52,8 +52,13 @@ public class Carta {
 	}
 
 	// Métodos específicos para cada acción
-	private void ejecutarPerderTurno() {
-		System.out.println("El jugador pierde su turno.");
+	private void ejecutarPerderTurno(Jugador jugador) {
+		if (jugador != null) {
+            jugador.perderTurno();
+            System.out.println(jugador.getNombre() + " ha perdido el turno.");
+        } else {
+            System.out.println("No se puede aplicar la acción, el jugador no es válido.");
+        }
 	}
 
 	private void ejecutarBloquearFicha() {
