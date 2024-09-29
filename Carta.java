@@ -43,9 +43,6 @@ public class Carta {
 			case "Cambiar color ficha":
 				ejecutarCambiarColor();
 				break;
-			case "Duplicar jugada":
-				ejecutarDuplicarJugada();
-				break;
 			case "Intercambiar fichas":
 				ejecutarIntercambiarFichas();
 				break;
@@ -53,32 +50,28 @@ public class Carta {
 				System.out.println("Tipo de carta desconocido.");
 		}
 	}
-	
+
 	// Métodos específicos para cada acción
 	private void ejecutarPerderTurno() {
 		System.out.println("El jugador pierde su turno.");
 	}
-	
+
 	private void ejecutarBloquearFicha() {
 		System.out.println("Se bloquea la ficha de otro jugador.");
 	}
-	
+
 	private void ejecutarAnularCasillero() {
 		System.out.println("Se anula un casillero del tablero.");
 	}
-	
+
 	private void ejecutarVolverAtras() {
 		System.out.println("Se vuelve atrás una jugada del turno.");
 	}
-	
+
 	private void ejecutarCambiarColor() {
 		System.out.println("Se cambia el color de una ficha.");
 	}
-	
-	private void ejecutarDuplicarJugada() {
-		System.out.println("Se duplica la última jugada del jugador.");
-	}
-	
+
 	private void ejecutarIntercambiarFichas() {
 		System.out.println("Se intercambian dos fichas.");
 	}
