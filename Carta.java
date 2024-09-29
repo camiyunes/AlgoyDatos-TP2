@@ -25,34 +25,62 @@ public class Carta {
         return this.jugada;
     }
 
-    public void jugarCarta() {
-        switch (this.jugada) {
-            case "Perder el turno":
-                System.out.println("El jugador pierde su turno.");
-                break;
-            case "Bloquear ficha":
-                System.out.println("Se bloquea la ficha de otro jugador.");
-                // bloquear una ficha de otro jugador
-                break;
-            case "Anular casillero":
-                System.out.println("Se anula un casillero del tablero.");
-                // anular un casillero del tablero
-                break;
-            case "Volver atrás jugada":
-                System.out.println("Se vuelve atrás una jugada del turno.");
-                // volver atrás una jugada
-                break;
-            case "Cambiar color ficha":
-                System.out.println("Se cambia el color de una ficha.");
-                // cambiar el color de una ficha
-                break;
-            case "Intercambiar fichas":
-                System.out.println("Se intercambian dos fichas.");
-                // intercambiar dos fichas
-                break;
-            default:
-                System.out.println("Jugada desconocida.");
-        }
-    }
+	// Ejecutar el efecto de la carta
+	public void jugarCarta() {  
+		switch (this.getCarta) {
+			case "Perder el turno":
+				ejecutarPerderTurno();
+				break;
+			case "Bloquear ficha":
+				ejecutarBloquearFicha();
+				break;
+			case "Anular casillero":
+				ejecutarAnularCasillero();
+				break;
+			case "Volver atrás jugada":
+				ejecutarVolverAtras();
+				break;
+			case "Cambiar color ficha":
+				ejecutarCambiarColor();
+				break;
+			case "Duplicar jugada":
+				ejecutarDuplicarJugada();
+				break;
+			case "Intercambiar fichas":
+				ejecutarIntercambiarFichas();
+				break;
+			default:
+				System.out.println("Tipo de carta desconocido.");
+		}
+	}
 	
+	// Métodos específicos para cada acción
+	private void ejecutarPerderTurno() {
+		System.out.println("El jugador pierde su turno.");
+	}
+	
+	private void ejecutarBloquearFicha() {
+		System.out.println("Se bloquea la ficha de otro jugador.");
+	}
+	
+	private void ejecutarAnularCasillero() {
+		System.out.println("Se anula un casillero del tablero.");
+	}
+	
+	private void ejecutarVolverAtras() {
+		System.out.println("Se vuelve atrás una jugada del turno.");
+	}
+	
+	private void ejecutarCambiarColor() {
+		System.out.println("Se cambia el color de una ficha.");
+	}
+	
+	private void ejecutarDuplicarJugada() {
+		System.out.println("Se duplica la última jugada del jugador.");
+	}
+	
+	private void ejecutarIntercambiarFichas() {
+		System.out.println("Se intercambian dos fichas.");
+	}
+
 }
