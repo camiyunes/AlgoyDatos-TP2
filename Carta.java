@@ -22,10 +22,10 @@ public class Carta {
 	}
 
 	// Ejecutar el efecto de la carta
-	public void jugarCarta() {  
+	public void jugarCarta(Jugador jugador) {  
 		switch (this.getCarta) {
 			case "Perder el turno":
-				ejecutarPerderTurno();
+				ejecutarPerderTurno(jugador);
 				break;
 			case "Bloquear ficha":
 				ejecutarBloquearFicha();
