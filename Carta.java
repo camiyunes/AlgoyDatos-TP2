@@ -22,7 +22,7 @@ public class Carta {
 	}
 	
 	public String getCarta() {
-        return this.jugada;
+        return this.getCarta;
     }
 
 	// Ejecutar el efecto de la carta
