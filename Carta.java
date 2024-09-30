@@ -20,10 +20,6 @@ public class Carta {
 	public void setProximo(Carta prox) {
 		this.proximo = prox;
 	}
-	
-	public String getCarta() {
-        return this.getCarta;
-    }
 
 	// Ejecutar el efecto de la carta
 	public void jugarCarta() {  
