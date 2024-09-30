@@ -43,4 +43,8 @@ public class Mazo {
 		this.cantidad -= 1;
 		return res;
 	}
+	
+	public int getCantidad() {
+		return this.cantidad;
+	}
 }

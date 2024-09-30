@@ -14,6 +14,6 @@ public class Dado {
 	}
 	
 	public int lanzarDado() {
-		 return random.nextInt(this.cantidadDeCaras);
+		 return random.nextInt(1, cantidadDeCaras+1);
 	}
 }

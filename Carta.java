@@ -21,9 +21,13 @@ public class Carta {
 		this.proximo = prox;
 	}
 
+	public String getAccion() {
+		return this.accion;
+	}
+	
 	// Ejecutar el efecto de la carta
-	public void jugarCarta(Jugador jugador) {  
-		switch (this.getCarta) {
+	public void jugarCarta(Jugador jugador) throws Exception {  
+		switch (this.getAccion()) {
 			case "Perder el turno":
 				perderTurno(jugador);
 				break;
@@ -48,12 +52,12 @@ public class Carta {
 	}
 
 	// Métodos específicos para cada acción
-	private void perderTurno(Jugador jugador) {
+	private void perderTurno(Jugador jugador) throws Exception {
 		if (jugador != null) {
             jugador.perderTurno();
             System.out.println(jugador.getNombre() + " ha perdido el turno.");
         } else {
-            System.out.println("No se puede aplicar la acción, el jugador no es válido.");
+            throw new Exception("No se puede aplicar la acción, el jugador no es válido.");
         }
 	}
 
