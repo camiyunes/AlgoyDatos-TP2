@@ -25,22 +25,22 @@ public class Carta {
 	public void jugarCarta(Jugador jugador) {  
 		switch (this.getCarta) {
 			case "Perder el turno":
-				ejecutarPerderTurno(jugador);
+				perderTurno(jugador);
 				break;
 			case "Bloquear ficha":
-				ejecutarBloquearFicha();
+				bloquearFicha();
 				break;
 			case "Anular casillero":
-				ejecutarAnularCasillero();
+				anularCasillero();
 				break;
 			case "Volver atrás jugada":
-				ejecutarVolverAtras();
+				volverAtras();
 				break;
 			case "Cambiar color ficha":
-				ejecutarCambiarColor();
+				cambiarColor();
 				break;
 			case "Intercambiar fichas":
-				ejecutarIntercambiarFichas();
+				intercambiarFichas();
 				break;
 			default:
 				System.out.println("Tipo de carta desconocido.");
@@ -48,7 +48,7 @@ public class Carta {
 	}
 
 	// Métodos específicos para cada acción
-	private void ejecutarPerderTurno(Jugador jugador) {
+	private void perderTurno(Jugador jugador) {
 		if (jugador != null) {
             jugador.perderTurno();
             System.out.println(jugador.getNombre() + " ha perdido el turno.");
@@ -57,23 +57,23 @@ public class Carta {
         }
 	}
 
-	private void ejecutarBloquearFicha() {
+	private void bloquearFicha() {
 		System.out.println("Se bloquea la ficha de otro jugador.");
 	}
 
-	private void ejecutarAnularCasillero() {
+	private void anularCasillero() {
 		System.out.println("Se anula un casillero del tablero.");
 	}
 
-	private void ejecutarVolverAtras() {
+	private void volverAtras() {
 		System.out.println("Se vuelve atrás una jugada del turno.");
 	}
 
-	private void ejecutarCambiarColor() {
+	private void cambiarColor() {
 		System.out.println("Se cambia el color de una ficha.");
 	}
 
-	private void ejecutarIntercambiarFichas() {
+	private void intercambiarFichas() {
 		System.out.println("Se intercambian dos fichas.");
 	}
 
