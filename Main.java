@@ -1,7 +1,7 @@
-package Tablero;
+package ar.uba.fi.cb100_onto_TP2;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Tablero3D tablero = new Tablero3D(5); // Crea un tablero 3x3x3
         
         tablero.colocarValor(1, 2, 1, 5); // Coloca un valor en la posición (1, 2, 1)
