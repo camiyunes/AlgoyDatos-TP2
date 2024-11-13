@@ -6,7 +6,8 @@ public class Jugador {
     private Carta[] mano = null;
     private int maximoDeCartas = 6;
 
-    public Jugador(String nombre) {
+    public Jugador(String nombre) throws Exception {
+    	validarNombre(nombre);
         this.nombre = nombre;
         this.turnoActivo = true; // Al comenzar, el turno está activo
         this.mano = new Carta[this.maximoDeCartas];
@@ -16,6 +17,7 @@ public class Jugador {
     }
     
     public Jugador(String nombre, int cartas) throws Exception {
+    	validarNombre(nombre);
     	if (cartas < 1) {
     		throw new Exception("El jugador debe poder agarrar cartas");
     	}
@@ -47,38 +49,37 @@ public class Jugador {
     public int getCantidadActualDeCartas() {
     	int res = 0;
     	for (Carta carta: this.mano) {
-    		if (carta != null) {
-    			res += 1;
-    		}
+    		if (carta != null) { res += 1; }
     	}
     	return res;
     }
     
-    public int getMaximoDeCartas() {
-    	return this.maximoDeCartas;
-    }
+    public int getMaximoDeCartas() { return this.maximoDeCartas; }
     
     public int getCapacidadRestante() {
     	return this.getMaximoDeCartas() - this.getCantidadActualDeCartas();
     }
     
+    //Post: roba numero cartas del mazo
     public void robarDelMazo(Mazo mazo, int numero) throws Exception {
-    	if (mazo == null) {
-    		throw new Exception("El mazo no puede estar vacío");
-    	}
+    	validarMazo(mazo);
+    	if (numero < 1) { throw new Exception("No se pudieron robar " + numero + " cartas"); }
     	int cont = 0;
     	int max = 1;
     	if (numero > this.getCapacidadRestante()) {
     		max = this.getCapacidadRestante();
-    	} else {
-    		max = numero;
+    	} else { max = numero; }
+    	if (max > mazo.getCantidad()) { max = mazo.getCantidad(); }
+    	while (cont < max) { this.agregarCarta(mazo.sacarCarta()); }
+    }
+    
+    //Post: roba 1 carta del mazo
+    public void robarDelMazo(Mazo mazo) throws Exception {
+    	validarMazo(mazo);
+    	if (this.getCapacidadRestante() <= 0) {
+    		throw new Exception("Tu mano está llena. Probá jugar una carta"); 
     	}
-    	if (max > mazo.getCantidad()) {
-    		max = mazo.getCantidad();
-    	}
-    	while (cont < max) {
-    		this.agregarCarta(mazo.sacarCarta());
-    	}
+		this.agregarCarta(mazo.sacarCarta());
     }
     
     private void agregarCarta(Carta carta) throws Exception {
@@ -103,5 +104,15 @@ public class Jugador {
     		}
     	}
     	throw new Exception("No se ha encontrado la carta");
+    }
+    
+    public void validarNombre(String nombre) throws Exception {
+    	if (nombre == null || nombre == "") {
+    		throw new Exception("¿Y pero entonces cómo se llama?");
+    	}
+    }
+    
+    public void validarMazo(Mazo mazo) throws Exception {
+    	if (mazo == null) { throw new Exception("El mazo no puede ser nulo"); }
     }
 }
