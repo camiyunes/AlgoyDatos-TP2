@@ -31,20 +31,34 @@ public class Carta {
 			case "Perder el turno":
 				perderTurno(jugador);
 				break;
+			case "Volver atrás jugada":
+				volverAtras(jugador);
+				break;
+			default:
+				System.out.println("Tipo de carta desconocido.");
+		}
+	}
+	
+	public void jugarCarta(Tablero3D tablero, int x, int y, int z) throws Exception {  
+		switch (this.getAccion()) {
 			case "Bloquear ficha":
-				bloquearFicha();
+				bloquearFicha(tablero, x, y, z);
 				break;
 			case "Anular casillero":
-				anularCasillero();
+				anularCasillero(tablero, x, y , z);
 				break;
-			case "Volver atrás jugada":
-				volverAtras();
-				break;
+			default:
+				System.out.println("Tipo de carta desconocido.");
+		}
+	}
+	
+	public void jugarCarta(Jugador jugador, Tablero3D tablero, int x, int y, int z) throws Exception {  
+		switch (this.getAccion()) {
 			case "Cambiar color ficha":
-				cambiarColor();
+				cambiarColor(jugador, tablero, x, y, z);
 				break;
 			case "Intercambiar fichas":
-				intercambiarFichas();
+				intercambiarFichas(jugador, tablero, x, y, z);
 				break;
 			default:
 				System.out.println("Tipo de carta desconocido.");
@@ -61,24 +75,49 @@ public class Carta {
         }
 	}
 
-	private void bloquearFicha() {
-		System.out.println("Se bloquea la ficha de otro jugador.");
+	private void bloquearFicha(Tablero3D tablero, int x, int y , int z) {
+		if (tablero != null) {
+			//tablero.bloquearFicha(x, y, z);
+			System.out.println("Se bloquea la ficha de otro jugador.");
+		} else {
+			throw new Exception("La ficha es inválida.");
+		}
 	}
 
-	private void anularCasillero() {
-		System.out.println("Se anula un casillero del tablero.");
+	private void anularCasillero(Tablero3D tablero, int x, int y , int z) {
+		if (tablero != null) {
+			//tablero.anularCasillero(x, y, z);
+			System.out.println("Se anula un casillero del tablero.");
+		} else {
+			throw new Exception("El casillero es inválido.");
+		}
 	}
 
-	private void volverAtras() {
-		System.out.println("Se vuelve atrás una jugada del turno.");
+	private void volverAtras(Jugador jugador) {
+		if (jugador != null) {
+			//jugador.deshacerUltimaJugada();
+			System.out.println("Se vuelve atrás la última jugada de " + jugador.getNombre() + ".");
+		} else {
+			throw new Exception("El jugador no es válido.");
+		}
 	}
 
-	private void cambiarColor() {
-		System.out.println("Se cambia el color de una ficha.");
+	private void cambiarColor(Jugador jugador, Tablero3D tablero, int x, int y, int z) {
+		if (jugador != null & tablero != null) {
+			//tablero.cambiarColorFicha(jugador.getNombre(), int x, int y, int z);
+			System.out.println("Se cambia el color de una ficha.");
+		} else {
+			throw new Exception("El jugador y/o el tablero no es/son válido/s.");
+		}
 	}
 
-	private void intercambiarFichas() {
-		System.out.println("Se intercambian dos fichas.");
+	private void intercambiarFichas(Jugador jugador, Tablero3D tablero, int x, int y, int z) {
+		if (jugador != null & tablero != null) {
+			//tablero.intercambiarFichas(jugador.getNombre(), int x, int y, int z);
+			System.out.println("Se intercambian dos fichas.");
+		} else {
+			throw new Exception("El jugador y/o el tablero no es/son válido/s.");
+		}
 	}
 
 }
