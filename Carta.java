@@ -4,6 +4,10 @@ public class Carta {
 	private Carta proximo = null;
 	private String accion = null;
 	
+	private static Long IDactual = 1L;
+	private Long id = null;
+	private String titulo = null;
+	
 	public Carta(String accion) throws Exception {
 		if (accion == "") {
 			throw new Exception("La acción no puede ser nula");
@@ -67,24 +71,20 @@ public class Carta {
 
 	// Métodos específicos para cada acción
 	private void perderTurno(Jugador jugador) throws Exception {
-		if (jugador != null) {
-            jugador.perderTurno();
-            System.out.println(jugador.getNombre() + " ha perdido el turno.");
-        } else {
-            throw new Exception("No se puede aplicar la acción, el jugador no es válido.");
-        }
+		validarJugador(jugador);
+		jugador.perderTurno();
+		System.out.println(jugador.getNombre() + " ha perdido el turno.");
+
 	}
 
-	private void bloquearFicha(Tablero3D tablero, int x, int y , int z) {
-		if (tablero != null) {
-			//tablero.bloquearFicha(x, y, z);
-			System.out.println("Se bloquea la ficha de otro jugador.");
-		} else {
-			throw new Exception("La ficha es inválida.");
-		}
+	private void bloquearFicha(Tablero3D tablero, int x, int y , int z) throws Exception {
+		validarTablero(tablero);
+		tablero.validarPosicion(x, y, z);
+		//tablero.bloquearFicha(x, y, z);
+		System.out.println("Se bloquea la ficha de otro jugador.");
 	}
 
-	private void anularCasillero(Tablero3D tablero, int x, int y , int z) {
+	private void anularCasillero(Tablero3D tablero, int x, int y , int z) throws Exception {
 		if (tablero != null) {
 			//tablero.anularCasillero(x, y, z);
 			System.out.println("Se anula un casillero del tablero.");
@@ -93,31 +93,35 @@ public class Carta {
 		}
 	}
 
-	private void volverAtras(Jugador jugador) {
-		if (jugador != null) {
-			//jugador.deshacerUltimaJugada();
-			System.out.println("Se vuelve atrás la última jugada de " + jugador.getNombre() + ".");
-		} else {
-			throw new Exception("El jugador no es válido.");
-		}
+	private void volverAtras(Jugador jugador) throws Exception {
+		validarJugador(jugador);
+		//jugador.deshacerUltimaJugada();
+		System.out.println("Se vuelve atrás la última jugada de " + jugador.getNombre() + ".");
 	}
 
-	private void cambiarColor(Jugador jugador, Tablero3D tablero, int x, int y, int z) {
-		if (jugador != null & tablero != null) {
-			//tablero.cambiarColorFicha(jugador.getNombre(), int x, int y, int z);
-			System.out.println("Se cambia el color de una ficha.");
-		} else {
-			throw new Exception("El jugador y/o el tablero no es/son válido/s.");
-		}
+	private void cambiarColor(Jugador jugador, Tablero3D tablero, int x, int y, int z) throws Exception {
+		validarJugador(jugador);
+		validarTablero(tablero);
+		tablero.validarPosicion(x, y, z);
+		//tablero.cambiarColorFicha(jugador.getNombre(), int x, int y, int z);
+		System.out.println("Se cambia el color de una ficha.");
 	}
 
-	private void intercambiarFichas(Jugador jugador, Tablero3D tablero, int x, int y, int z) {
-		if (jugador != null & tablero != null) {
-			//tablero.intercambiarFichas(jugador.getNombre(), int x, int y, int z);
-			System.out.println("Se intercambian dos fichas.");
-		} else {
-			throw new Exception("El jugador y/o el tablero no es/son válido/s.");
-		}
+	private void intercambiarFichas(Jugador jugador, Tablero3D tablero, int x, int y, int z) throws Exception {
+		validarJugador(jugador);
+		validarTablero(tablero);
+		tablero.validarPosicion(x, y, z);
+		//tablero.intercambiarFichas(jugador.getNombre(), int x, int y, int z);
+		System.out.println("Se intercambian dos fichas.");
 	}
-
+	
+	public void validarJugador(Jugador jugador) throws Exception {
+		if (jugador == null) { throw new Exception("Se te olvidó referenciar el jugador"); }
+	}
+	
+	public void validarTablero(Tablero3D tablero) throws Exception {
+		if (tablero == null) { throw new Exception("Perdón, pero la nada no es un tablero"); }
+	}
+	
+	public String getTitulo() { return this.titulo; }
 }
