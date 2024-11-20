@@ -63,9 +63,52 @@ public class Tablero3D {
 		}
 	}
     
+	public boolean partidaTerminada() throws Exception {
+		for (int i = -1; i < 1; i++) {
+			for (int j = -1; j < 1; j++) {
+				for (int k = -1; k < 1; k++) {
+					if (tresEnLinea(i, j, k)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	public boolean tresEnLinea(int x, int y, int z) throws Exception {
+		try {
+			for (int i = -1; i < 1; i++) {
+				for (int j = -1; j < 1; j++) {
+					for (int k = -1; k < 1; k++) {
+						int fichasSeguidasExtremo = contarFichasSeguidas(x, y, z, i, j, k);
+						if (fichasSeguidasExtremo == 3) { return true; }
+					}
+				}
+			}
+		} catch (Exception e) { return false; }
+		return false;
+	}
+	
+	public int contarFichasSeguidas(int x1, int y1, int z1, int x2, int y2, int z2) throws Exception {
+		if (!posicionValida(x1, y2, z2)) { return 0; }
+		if (!posicionValida(x2, y2, z2)) { return 0; }
+		if (getValor(x1, y1, z1)!= getValor(x2, y2, z2)) { return 0; }
+		int deltaX = x2-x1;
+		int deltaY = y2-y1;
+		int deltaZ = z2-z1;
+		return 1 + contarFichasSeguidas(x2, y2, z2, x2+deltaX, y2+deltaY, z2+deltaZ);
+	}
+	
     //Post: devuelve true si la posición indicada es válida, y sino, false
     public boolean posicionValida(int x, int y, int z) {
     	return x >= 0 && x < tamaño && y >= 0 && y < tamaño && z >= 0 && z < tamaño;
+    }
+    
+    //Post: devuelve el valor correspondiente a una posicion
+    public int getValor(int x, int y, int z) throws Exception {
+        validarPosicion(x, y, z);
+        return tablero[x][y][z];
     }
     
     // Post: setea un valor en una posición específica
