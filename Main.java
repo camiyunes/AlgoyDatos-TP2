@@ -17,6 +17,8 @@ public class Main {
 			if (!(opcion.isEmpty() || opcion.isBlank()) && !esUnNumero(opcion)) {
 				System.out.println("El input ingresado es inválido. Vuelva a intentar");
 				continue;
+			} else if (opcion.isEmpty() || opcion.isBlank()){
+				System.out.println("Dado que usted ingresó la nada misma, en su lugar será elegido el valor default: 3");
 			} else { largo = Integer.parseInt(opcion); }
 			break;
 		}
@@ -41,15 +43,26 @@ public class Main {
 		if (jugadores <= 1) {
 			System.out.println("¿Por qué tan solito? Mejor si te damos un rival y son 2");
 			jugadores = 2;
-		} else {
-			System.out.println("Usted ha elegido exitosamente jugar contra " + (jugadores - 1) + " jugadores");
-		}
+		} else { System.out.println("Usted ha elegido exitosamente jugar contra " + (jugadores - 1) + " jugadores"); }
 		System.out.println("Que empieze el juego!");
 		int turnoActual = 0;
 		Mazo mazo = new Mazo(jugadores * 24);
 		
     }
-
+	
+	public void cicloDelTurno(int turnoActual, Tablero3D tablero, int jugadores, Mazo mazo) {
+		turnoActual++;
+		int counter = deQuienEsElTurno(turnoActual, jugadores);
+		System.out.println("Turno de: " + counter);
+		
+	}
+	
+	public int deQuienEsElTurno(int turnoActual, int jugadores) {
+		if (turnoActual <= jugadores) { return turnoActual; }
+		int multiplicador = turnoActual / jugadores;
+		return turnoActual - (jugadores * multiplicador);
+	}
+	
 	public static boolean esUnNumero(char charAt) {
 		String numeros = "0123456789";
 		for (int i = 0; i < numeros.length(); i++) {
@@ -65,17 +78,18 @@ public class Main {
 		return true;
 	}
 	
-	public void cicloDelTurno(int turnoActual, Tablero3D tablero, int jugadores, Mazo mazo) {
-		turnoActual++;
-		int counter = deQuienEsElTurno(turnoActual, jugadores);
-		System.out.println("Turno de: " + counter);
-		
-	}
-	
-	public int deQuienEsElTurno(int turnoActual, int jugadores) {
-		if (turnoActual <= jugadores) { return turnoActual; }
-		int multiplicador = turnoActual / jugadores;
-		return turnoActual - (jugadores * multiplicador);
+	public Jugador crearPersonaje(Scanner teclado) throws Exception {
+		Jugador nuevo = null;
+		while (true) {
+			System.out.println("Ingresá tu nombre acá: ");
+			String nombre = teclado.nextLine();
+			if (nombre.isEmpty() || nombre.isBlank()) {
+				System.out.println("Nombre inválido. Vuelva a intentar.");
+				continue;
+			} else { nuevo = new Jugador(nombre); }
+			break;
+		}
+		return nuevo;
 	}
 }
 
