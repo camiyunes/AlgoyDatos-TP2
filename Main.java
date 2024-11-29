@@ -22,10 +22,10 @@ public class Main {
 			} else { largo = Integer.parseInt(opcion); }
 			break;
 		}
-		tablero = new Tablero3D();
+
 		if (largo < 1) {
 			System.out.println("Usted ha exitosamente elegido un tablero de 3 x 3 x 3");
-
+			tablero = new Tablero3D();
 		} else {
 			System.out.println("Usted ha exitosamente elegido un tablero de " + largo + " x " + largo + " x " + largo);
 			tablero = new Tablero3D(largo);	
