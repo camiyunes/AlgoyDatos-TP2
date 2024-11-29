@@ -8,6 +8,7 @@ public class Casillero<T> {
 	private int z = 0;
 	private T dato = null;
 	private Casillero<T>[][][] vecinos;
+	private boolean anulado = false;
 	
 	public Casillero(int x, int y, int z) throws Exception {
 		if (x < 1) { throw new Exception("X debe ser mayor que 0"); }
@@ -23,6 +24,23 @@ public class Casillero<T> {
 			}
 		}
 		this.vecinos[1][1][1] = this;
+	}
+	
+	public Casillero(int x, int y, int z, T dato) throws Exception {
+		if (x < 1) { throw new Exception("X debe ser mayor que 0"); }
+		if (y < 1) { throw new Exception("Y debe ser mayor que 0"); }
+		if (z < 1) { throw new Exception("Z debe ser mayor que 0"); }
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		this.vecinos= new Casillero[CANTIDAD_DE_VECINOS][CANTIDAD_DE_VECINOS][CANTIDAD_DE_VECINOS];
+		for (int i = 0; i < this.vecinos.length; i++) {
+			for (int j = 0; j < 3; j++) {
+				for (int k = 0; k < 3; k++) { this.vecinos[i][j][k] = null; }
+			}
+		}
+		this.vecinos[1][1][1] = this;
+		this.dato = dato;
 	}
 	
 	public boolean existeElVecino(Direccion movimiento) {
@@ -50,6 +68,18 @@ public class Casillero<T> {
 			
 		}
 		return false;
+	}
+	
+	public void anular() {
+		this.anulado = true;
+	}
+	
+	public void desanular() {
+		this.anulado = false;
+	}
+	
+	public boolean estaAnulado() {
+		return this.anulado;
 	}
 	
 	public int getX() {

@@ -84,13 +84,13 @@ public class Carta {
 	private void bloquearFicha(Tablero3D tablero, int x, int y , int z) throws Exception {
 		validarTablero(tablero);
 		tablero.validarPosicion(x, y, z);
-		//tablero.bloquearFicha(x, y, z);
+		tablero.bloquearFicha(x, y, z);
 		System.out.println("Se bloquea la ficha de otro jugador.");
 	}
 
 	private void anularCasillero(Tablero3D tablero, int x, int y , int z) throws Exception {
 		if (tablero != null) {
-			//tablero.anularCasillero(x, y, z);
+			tablero.anularCasillero(x, y, z);
 			System.out.println("Se anula un casillero del tablero.");
 		} else {
 			throw new Exception("El casillero es inválido.");
@@ -99,7 +99,7 @@ public class Carta {
 
 	private void volverAtras(Jugador jugador) throws Exception {
 		validarJugador(jugador);
-		//jugador.deshacerUltimaJugada();
+		jugador.deshacerUltimaJugada();
 		System.out.println("Se vuelve atrás la última jugada de " + jugador.getNombre() + ".");
 	}
 
@@ -107,7 +107,7 @@ public class Carta {
 		validarJugador(jugador);
 		validarTablero(tablero);
 		tablero.validarPosicion(x, y, z);
-		//tablero.cambiarColorFicha(jugador.getNombre(), int x, int y, int z);
+		tablero.cambiarColorFicha(jugador.getNombre(), x, y, z);
 		System.out.println("Se cambia el color de una ficha.");
 	}
 
@@ -115,7 +115,7 @@ public class Carta {
 		validarJugador(jugador);
 		validarTablero(tablero);
 		tablero.validarPosicion(x, y, z);
-		//tablero.intercambiarFichas(jugador.getNombre(), int x, int y, int z);
+		tablero.intercambiarFichas(jugador, x, y, z);
 		System.out.println("Se intercambian dos fichas.");
 	}
 	

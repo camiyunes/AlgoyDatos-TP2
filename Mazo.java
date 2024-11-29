@@ -5,7 +5,7 @@ public class Mazo {
 	private Carta ultimo = null;
 	private int cantidad = 0;
 	
-	public Mazo(int cantidadDeCartas) {
+	public Mazo() {
 		this.primero = null;
 		this.ultimo = null;
 		this.cantidad = 0;

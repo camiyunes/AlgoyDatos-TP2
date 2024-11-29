@@ -1,5 +1,7 @@
 package ar.uba.fi.cb100_onto_TP2;
 
+
+
 public class Jugador {
 	private String nombre;
 	public int fichasDisponibles;
@@ -138,5 +140,10 @@ public class Jugador {
 	
 	public boolean tieneTodasLasFichasEnElTablero() {
 		return this.tieneTodasLasFichasEnElTablero;
+	}
+
+	public void deshacerUltimaJugada() {
+		// TODO Auto-generated method stub
+		
 	}
 }

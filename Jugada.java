@@ -11,31 +11,34 @@ public class Jugada {
 		this.casillero = casillero;
 		this.carta = carta;
 		this.tablero = tablero;
-    }
+	}
     
 	public void realizarJugada() throws Exception {
-        // Colocar una ficha en el casillero
+		// Colocar una ficha en el casillero
 		Ficha ficha = new Ficha(jugador.getFicha(), casillero.getX(), casillero.getY(), casillero.getZ());
 		tablero.setValor(casillero.getX(), casillero.getY(), casillero.getZ(), ficha);
 
-        // Usar una carta si el jugador decide hacerlo
-		if (carta == null) { throw new Exception("Pero si no estás jugando ninguna carta, amigo"); }
+		// Usar una carta si el jugador decide hacerlo
+		if (carta == null) { throw new Exception("Pero si no estï¿½s jugando ninguna carta, amigo"); }
 		switch (carta.getAccion()) {
 			case "Perder el turno":
-			case "Volver atrás jugada":
+				carta.jugarCarta(jugador);
+			case "Volver atras jugada":
 				carta.jugarCarta(jugador);
 				break;
 			case "Bloquear ficha":
+				carta.jugarCarta(tablero, casillero.getX(), casillero.getY(), casillero.getZ());
 			case "Anular casillero":
 				carta.jugarCarta(tablero, casillero.getX(), casillero.getY(), casillero.getZ());
 				break;
 			case "Cambiar color ficha":
+				carta.jugarCarta(jugador, tablero, casillero.getX(), casillero.getY(), casillero.getZ());
 			case "Intercambiar fichas":
 				carta.jugarCarta(jugador, tablero, casillero.getX(), casillero.getY(), casillero.getZ());
-                break;
+			case "Rehacer jugada":
+				carta.jugarCarta(jugador);
 			default:
-				throw new Exception("Acción de carta desconocida.");
-			
+				throw new Exception("Acciï¿½n de carta desconocida.");
 		}
 
 		// Actualizar el estado del tablero

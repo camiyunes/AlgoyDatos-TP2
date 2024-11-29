@@ -1,12 +1,19 @@
 package ar.uba.fi.cb100_onto_TP2;
 
 import java.util.Scanner;
+import java.util.Random;
 
 public class Main {
 	public static void main(String[] args) throws Exception {
 		Scanner teclado = new Scanner(System.in);
+		Random random = new Random(System.nanoTime());
 		int largo = 0;
 		int jugadores = 0;
+		Pila<Jugada> pasado = new Pila<Jugada>();
+		Pila<Jugada> futuro = new Pila<Jugada>();
+		String[] acciones = new String[7];
+		acciones[0] = "Perder el turno";
+		
 
 		Tablero3D tablero = null; // reserva espacio vacio para un tablero
 		System.out.println("Bienvenido al ta-te-ti tridimensional!");
@@ -47,8 +54,15 @@ public class Main {
 		} else { System.out.println("Usted ha elegido exitosamente jugar contra " + (jugadores - 1) + " jugadores"); }
 		System.out.println("Que empieze el juego!");
 		int turnoActual = 0;
-		Mazo mazoPrincipal = new Mazo(jugadores * 24);
-		Mazo mazoDescartes = new Mazo(mazoPrincipal.getCantidad());
+		Dado dado = new Dado(6);
+		//creo los mazos principal y de descarte
+		Mazo mazoPrincipal = new Mazo();
+		Mazo mazoDescartes = new Mazo();
+		int contCartas = 0;
+		while (contCartas < jugadores * largo) {
+			mazoPrincipal.agregarCarta(new Carta(acciones[random.nextInt()]));
+			contCartas++;
+		}
 		
 		// Crear jugadores
 		Jugador[] listaJugadores = new Jugador[jugadores];
@@ -65,18 +79,41 @@ public class Main {
 			int indiceJugador = deQuienEsElTurno(turnoActual, jugadores);
 			Jugador jugadorActual = listaJugadores[indiceJugador - 1];
 			System.out.println("Turno de: " + jugadorActual.getNombre());
-
-            // Realizar jugada
-			System.out.println("Ingrese las coordenadas de la jugada (x y z):");
-			int x = teclado.nextInt();
-			int y = teclado.nextInt();
-			int z = teclado.nextInt();
-			teclado.nextLine(); // Consumir el salto de línea
-
-			Casillero casillero = new Casillero(x, y, z);
-			Carta carta = null; // Aquí podrías implementar la lógica para seleccionar una carta
-			Jugada jugada = new Jugada(jugadorActual, casillero, carta, tablero);
-			jugada.realizarJugada();
+			if (jugadorActual.isTurnoActivo()) {
+				//Inicio del turno
+				int cartasALevantar = dado.lanzarDado();
+				try {
+					jugadorActual.robarDelMazo(mazoPrincipal, cartasALevantar);
+				} catch (Exception e) {
+					System.out.println("Parece que no se pudieron levantar " + cartasALevantar + " cartas");
+				}
+	            // Realizar jugada
+				
+				System.out.println("Ingrese las coordenadas de la jugada (x y z):");
+				int x0 = teclado.nextInt();
+				int y0 = teclado.nextInt();
+				int z0 = teclado.nextInt();
+				if (jugadorActual.tieneTodasLasFichasEnElTablero()) {
+					
+				} else {
+					
+				}
+				teclado.nextLine(); // Consumir el salto de línea
+				System.out.println("Ingrese las coordenadas de la jugada (x y z):");
+				Casillero casillero = new Casillero(x0, y0, z0);
+				
+				//fin de turno
+				Carta carta = null; // Aquí podrías implementar la lógica para seleccionar una carta
+				System.out.println("¿Desea jugar una carta?");
+				String res = teclado.nextLine();
+				if (res == "si") {
+					System.out.println("Seleccione una carta del " + 0 + " al" + 6);
+					int indice = teclado.nextInt();
+					Jugada jugada = new Jugada(jugadorActual, casillero, carta, tablero);
+					jugada.realizarJugada();
+				}
+			}
+			jugadorActual.reiniciarTurno();
 		}
 
 		System.out.println("¡Juego terminado!");
@@ -109,4 +146,8 @@ public class Main {
         int multiplicador = turnoActual / jugadores;
         return turnoActual - (jugadores * multiplicador);
     }
+	
+	public void seleccionarCasillero(int x, int y, int z) {
+		
+	}
 }

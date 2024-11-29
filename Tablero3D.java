@@ -2,28 +2,28 @@ package ar.uba.fi.cb100_onto_TP2;
 
 public class Tablero3D {
 	private static int TAMAÑO_DEFAULT = 3;
-	private Ficha[][][] tablero;
+	private Casillero<Ficha>[][][] tablero;
 	private int tamaño = TAMAÑO_DEFAULT;
 
     // Constructor
 	public Tablero3D(int tamaño) throws Exception {
 		if (tamaño < 1) { throw new Exception("¿y dónde ponemos las fichas entonces?"); }
 		this.tamaño = tamaño;
-		this.tablero = new Ficha[tamaño][tamaño][tamaño]; // matriz 3D
+		this.tablero = new Casillero[tamaño][tamaño][tamaño]; // matriz 3D
 		inicializarCeldas(this.tablero);
 	}
     
-    private void inicializarCeldas(Ficha[][][] tablero2) {
+    private void inicializarCeldas(Casillero<Ficha>[][][] tablero2) throws Exception {
 		for (int i = 0; i < tablero2.length; i++) {
 			for (int j = 0; j < tablero2.length; j++) {
-				for (int k = 0; k < tablero2.length; k++) { tablero2[i][j][k] = new Ficha(i, j, k); }
+				for (int k = 0; k < tablero2.length; k++) { tablero2[i][j][k] = new Casillero<Ficha>(i, j, k); }
 			}
 		}
 	}
 
 	// Constructor promedio
-	public Tablero3D() {
-		this.tablero = new Ficha[TAMAÑO_DEFAULT][TAMAÑO_DEFAULT][TAMAÑO_DEFAULT]; // matriz 3D
+	public Tablero3D() throws Exception {
+		this.tablero = new Casillero[TAMAÑO_DEFAULT][TAMAÑO_DEFAULT][TAMAÑO_DEFAULT]; // matriz 3D
 		inicializarCeldas(this.tablero);
 	}
 
@@ -104,13 +104,13 @@ public class Tablero3D {
     //Post: devuelve el valor correspondiente a una posicion
     public Ficha getValor(int x, int y, int z) throws Exception {
         validarPosicion(x, y, z);
-        return tablero[x][y][z];
+        return tablero[x][y][z].getDato();
     }
     
     // Post: setea un valor en una posición específica
     public void setValor(int x, int y, int z, Ficha valor) throws Exception {
         validarPosicion(x, y, z);
-        tablero[x][y][z] = valor;
+        tablero[x][y][z] = new Casillero<Ficha>(x, y, z);
     }
     
     public void validarPosicion(int x, int y, int z) throws Exception {
@@ -120,6 +120,24 @@ public class Tablero3D {
     public void validarPositivo(int n) throws Exception {
     	if (n <= 0) { throw new Exception("Hay que ingresar un parámetro positivo, y " + n + " no lo es. "); }
     }
+
+	public void bloquearFicha(int x, int y, int z) {
+		this.tablero[x][y][z].getDato().bloquear();
+	}
+
+	public void cambiarColorFicha(String nombre, int x, int y, int z) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void intercambiarFichas(Jugador jugador, int x, int y, int z) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void anularCasillero(int x, int y, int z) {
+		this.tablero[x][y][z].anular();
+	}
 }
 
 
