@@ -20,13 +20,17 @@ public class Carta {
 		Carta prox = proximo;
 		return prox;
 	}
-	
-	public void setProximo(Carta prox) {
-		this.proximo = prox;
-	}
 
 	public String getAccion() {
 		return this.accion;
+	}
+	
+	public String getTitulo() {
+		return this.titulo;
+	}
+	
+	public void setProximo(Carta prox) {
+		this.proximo = prox;
 	}
 	
 	// Ejecutar el efecto de la carta
@@ -122,6 +126,4 @@ public class Carta {
 	public void validarTablero(Tablero3D tablero) throws Exception {
 		if (tablero == null) { throw new Exception("Perdón, pero la nada no es un tablero"); }
 	}
-	
-	public String getTitulo() { return this.titulo; }
 }

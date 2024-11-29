@@ -2,33 +2,33 @@ package ar.uba.fi.cb100_onto_TP2;
 
 public class Tablero3D {
 	private static int TAMAÑO_DEFAULT = 3;
-	private int[][][] tablero;
+	private Ficha[][][] tablero;
 	private int tamaño = TAMAÑO_DEFAULT;
 
     // Constructor
 	public Tablero3D(int tamaño) throws Exception {
 		if (tamaño < 1) { throw new Exception("¿y dónde ponemos las fichas entonces?"); }
 		this.tamaño = tamaño;
-		this.tablero = new int[tamaño][tamaño][tamaño]; // matriz 3D
+		this.tablero = new Ficha[tamaño][tamaño][tamaño]; // matriz 3D
 		inicializarCeldas(this.tablero);
 	}
     
-    private void inicializarCeldas(int[][][] tablero2) {
+    private void inicializarCeldas(Ficha[][][] tablero2) {
 		for (int i = 0; i < tablero2.length; i++) {
 			for (int j = 0; j < tablero2.length; j++) {
-				for (int k = 0; k < tablero2.length; k++) { tablero2[i][j][k] = 0; }
+				for (int k = 0; k < tablero2.length; k++) { tablero2[i][j][k] = null; }
 			}
 		}
 	}
 
 	// Constructor promedio
 	public Tablero3D() {
-		this.tablero = new int[TAMAÑO_DEFAULT][TAMAÑO_DEFAULT][TAMAÑO_DEFAULT]; // matriz 3D
+		this.tablero = new Ficha[TAMAÑO_DEFAULT][TAMAÑO_DEFAULT][TAMAÑO_DEFAULT]; // matriz 3D
 		inicializarCeldas(this.tablero);
 	}
 
     // Método para obtener un valor de una posición específica
-    public int obtenerValor(int x, int y, int z) throws Exception {
+    public Ficha obtenerValor(int x, int y, int z) throws Exception {
 		validarPosicion(x, y, z);
 		return tablero[x][y][z];
 	}
@@ -64,9 +64,9 @@ public class Tablero3D {
 	}
     
 	public boolean partidaTerminada() throws Exception {
-		for (int i = -1; i < 1; i++) {
-			for (int j = -1; j < 1; j++) {
-				for (int k = -1; k < 1; k++) {
+		for (int i = 0; i < tamaño; i++) {
+			for (int j = 0; j < tamaño; j++) {
+				for (int k = 0; k < tamaño; k++) {
 					if (tresEnLinea(i, j, k)) {
 						return true;
 					}
@@ -82,7 +82,7 @@ public class Tablero3D {
 				for (int j = -1; j < 1; j++) {
 					for (int k = -1; k < 1; k++) {
 						int fichasSeguidasExtremo = contarFichasSeguidas(x, y, z, i, j, k);
-						if (fichasSeguidasExtremo == 3) { return true; }
+						if (fichasSeguidasExtremo >= 3) { return true; }
 					}
 				}
 			}
@@ -106,13 +106,13 @@ public class Tablero3D {
     }
     
     //Post: devuelve el valor correspondiente a una posicion
-    public int getValor(int x, int y, int z) throws Exception {
+    public Ficha getValor(int x, int y, int z) throws Exception {
         validarPosicion(x, y, z);
         return tablero[x][y][z];
     }
     
     // Post: setea un valor en una posición específica
-    public void setValor(int x, int y, int z, int valor) throws Exception {
+    public void setValor(int x, int y, int z, Ficha valor) throws Exception {
         validarPosicion(x, y, z);
         tablero[x][y][z] = valor;
     }

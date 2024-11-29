@@ -31,11 +31,10 @@ public class Mazo {
 		if (this.primero == this.ultimo) {
 			if (this.primero == null) {
 				throw new Exception("El mazo está vacío");
-			} else {
-				res = this.primero;
-				this.primero = null;
-				this.ultimo = null;
 			}
+			res = this.primero;
+			this.primero = null;
+			this.ultimo = null;
 		} else {
 			res = this.primero;
 			this.primero = res.getProximo();
