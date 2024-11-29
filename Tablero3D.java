@@ -16,7 +16,7 @@ public class Tablero3D {
     private void inicializarCeldas(Ficha[][][] tablero2) {
 		for (int i = 0; i < tablero2.length; i++) {
 			for (int j = 0; j < tablero2.length; j++) {
-				for (int k = 0; k < tablero2.length; k++) { tablero2[i][j][k] = null; }
+				for (int k = 0; k < tablero2.length; k++) { tablero2[i][j][k] = new Ficha(i, j, k); }
 			}
 		}
 	}
@@ -25,12 +25,6 @@ public class Tablero3D {
 	public Tablero3D() {
 		this.tablero = new Ficha[TAMAÑO_DEFAULT][TAMAÑO_DEFAULT][TAMAÑO_DEFAULT]; // matriz 3D
 		inicializarCeldas(this.tablero);
-	}
-
-    // Método para obtener un valor de una posición específica
-    public Ficha obtenerValor(int x, int y, int z) throws Exception {
-		validarPosicion(x, y, z);
-		return tablero[x][y][z];
 	}
 
     //Post: devuelve la forma String del tablero
@@ -81,7 +75,7 @@ public class Tablero3D {
 			for (int i = -1; i < 1; i++) {
 				for (int j = -1; j < 1; j++) {
 					for (int k = -1; k < 1; k++) {
-						int fichasSeguidasExtremo = contarFichasSeguidas(x, y, z, i, j, k);
+						int fichasSeguidasExtremo = contarFichasSeguidas(x, y, z, x+i, y+j, z+k);
 						if (fichasSeguidasExtremo >= 3) { return true; }
 					}
 				}
@@ -92,8 +86,10 @@ public class Tablero3D {
 	
 	public int contarFichasSeguidas(int x1, int y1, int z1, int x2, int y2, int z2) throws Exception {
 		if (!posicionValida(x1, y2, z2)) { return 0; }
-		if (!posicionValida(x2, y2, z2)) { return 0; }
-		if (getValor(x1, y1, z1)!= getValor(x2, y2, z2)) { return 0; }
+		if (!posicionValida(x2, y2, z2)) { return 1; }
+		if (getValor(x1, y1, z1).isBloqueada() || getValor(x1, y1, z1).isBloqueada()) { return 1; }
+		if (getValor(x1, y1, z1).getColor() != getValor(x2, y2, z2).getColor()) { return 1; }
+		if (x1 == x2 && y1 == y2 && z1 == z2) { return 1; }
 		int deltaX = x2-x1;
 		int deltaY = y2-y1;
 		int deltaZ = z2-z1;
@@ -118,7 +114,7 @@ public class Tablero3D {
     }
     
     public void validarPosicion(int x, int y, int z) throws Exception {
-    	if (!posicionValida(x, y, z) ) { throw new Exception("Índice fuera de los límites."); }
+    	if (!posicionValida(x, y, z)) { throw new Exception("Índice fuera de los límites."); }
     }
     
     public void validarPositivo(int n) throws Exception {
