@@ -15,7 +15,7 @@ public class Jugada {
     
 	public void realizarJugada() throws Exception {
 		// Colocar una ficha en el casillero
-		Ficha ficha = new Ficha(jugador.getFicha(), casillero.getX(), casillero.getY(), casillero.getZ());
+		Ficha ficha = new Ficha(jugador.getFicha().getColor(), casillero.getX(), casillero.getY(), casillero.getZ());
 		tablero.setValor(casillero.getX(), casillero.getY(), casillero.getZ(), ficha);
 
 		// Usar una carta si el jugador decide hacerlo

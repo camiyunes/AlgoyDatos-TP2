@@ -9,9 +9,9 @@ public class Jugador {
 	private boolean turnoActivo;
 	private Carta[] mano = null;
 	private int maximoDeCartas = 6;
-	private char ficha; // Añadido para representar la ficha del jugador
+	private Ficha ficha; // Añadido para representar la ficha del jugador
 
-	public Jugador(String nombre, char ficha) throws Exception {
+	public Jugador(String nombre, Ficha ficha) throws Exception {
 		validarNombre(nombre);
 		this.nombre = nombre;
 		this.turnoActivo = true; // Al comenzar, el turno está activo
@@ -22,7 +22,7 @@ public class Jugador {
 		}
 	}
 
-    public Jugador(String nombre, char ficha, int cartas) throws Exception {
+    public Jugador(String nombre, Ficha ficha, int cartas) throws Exception {
         validarNombre(nombre);
         if (cartas < 1) {
             throw new Exception("El jugador debe poder agarrar cartas");
@@ -71,7 +71,7 @@ public class Jugador {
 		return this.getMaximoDeCartas() - this.getCantidadActualDeCartas();
 	}
 	
-	public char getFicha() {
+	public Ficha getFicha() {
 		return ficha;
 	}
 	
@@ -145,5 +145,14 @@ public class Jugador {
 	public void deshacerUltimaJugada() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public Carta[] getMano() {
+		return this.mano;
+	}
+
+	public void colocarFicha(Tablero3D tablero, int x, int y, int z) {
+		tablero.colocarFicha(x, y, z, this.getFicha());
+		this.fichasDisponibles--;
 	}
 }

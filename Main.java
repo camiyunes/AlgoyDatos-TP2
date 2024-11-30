@@ -70,7 +70,7 @@ public class Main {
 			System.out.println("Ingrese el nombre del jugador " + (i + 1) + ":");
 			String nombre = teclado.nextLine();
 			char ficha = (char) ('A' + i); // Asignar una ficha diferente a cada jugador
-			listaJugadores[i] = new Jugador(nombre, ficha);
+			listaJugadores[i] = new Jugador(nombre, new Ficha(ficha));
 		}
 
         // Ciclo del juego
@@ -87,31 +87,53 @@ public class Main {
 				} catch (Exception e) {
 					System.out.println("Parece que no se pudieron levantar " + cartasALevantar + " cartas");
 				}
-	            // Realizar jugada
-				
-				System.out.println("Ingrese las coordenadas de la jugada (x y z):");
-				int x0 = teclado.nextInt();
-				int y0 = teclado.nextInt();
-				int z0 = teclado.nextInt();
-				if (jugadorActual.tieneTodasLasFichasEnElTablero()) {
-					
-				} else {
-					
+				// Realizar jugada
+				System.out.println("Ingrese las coordenadas del casillero (x y z):");
+				while (true) {
+					if (jugadorActual.tieneTodasLasFichasEnElTablero()) {
+						System.out.println("¿Qué ficha desea mover? (x y z)");
+					} else {
+						System.out.println("¿En dónde vas a poner tu ficha (x y z)?");
+					}
+					int x0 = teclado.nextInt();
+					int y0 = teclado.nextInt();
+					int z0 = teclado.nextInt();
+					if (jugadorActual.tieneTodasLasFichasEnElTablero()) {
+						if (tablero.getValor(x0, y0, z0).getColor() == jugadorActual.getFicha().getColor()) {
+							System.out.println("¿A dónde desea mover la ficha? (x y z):");
+							int x1 = teclado.nextInt();
+							int y1 = teclado.nextInt();
+							int z1 = teclado.nextInt();
+							tablero.moverFicha(x0, y0, z0, x1, y1, z1);
+						} else {
+							System.out.println("La posición ingresada no es válida porque no hay ficha que mover");
+							continue;
+						}
+					} else {
+						if (tablero.getValor(x0, y0, z0).getColor() == jugadorActual.getFicha().getColor()) {
+							System.out.println("La posición ingresada no es válida porque ya hay una ficha ahí");
+							continue;
+						} else {
+							jugadorActual.colocarFicha(tablero, x0, y0, z0);
+						}
+					}
+					break;
 				}
 				teclado.nextLine(); // Consumir el salto de línea
-				System.out.println("Ingrese las coordenadas de la jugada (x y z):");
-				Casillero casillero = new Casillero(x0, y0, z0);
-				
+
+				int jugadorProximo = deQuienEsElTurno(turnoActual+1, jugadores);
+				Jugador jugadorOponente = listaJugadores[indiceJugador - 1];
 				//fin de turno
-				Carta carta = null; // Aquí podrías implementar la lógica para seleccionar una carta
-				System.out.println("¿Desea jugar una carta?");
-				String res = teclado.nextLine();
-				if (res == "si") {
-					System.out.println("Seleccione una carta del " + 0 + " al" + 6);
-					int indice = teclado.nextInt();
-					Jugada jugada = new Jugada(jugadorActual, casillero, carta, tablero);
-					jugada.realizarJugada();
-				}
+				System.out.println("Seleccione la carta que desea jugar (del " + 0 + " al" + 6 + ")");
+				int indice = teclado.nextInt();
+				Carta carta = jugadorActual.getMano()[indice];
+				System.out.println("Ingrese las coordenadas de la jugada (x y z):");
+				int x = teclado.nextInt();
+				int y = teclado.nextInt();
+				int z = teclado.nextInt();
+				Casillero<Ficha> casillero = tablero.getCasilla(x, y, z);
+				Jugada jugada = new Jugada(jugadorActual, casillero, carta, tablero);
+				jugada.realizarJugada();
 			}
 			jugadorActual.reiniciarTurno();
 		}
@@ -147,7 +169,11 @@ public class Main {
         return turnoActual - (jugadores * multiplicador);
     }
 	
-	public void seleccionarCasillero(int x, int y, int z) {
+	public void deshacerJugada(Pila<Jugada> jugadas, Jugada jugada) {
+		
+	}
+	
+	public void rehacerJugada(Pila<Jugada> jugadas, Jugada jugada) {
 		
 	}
 }

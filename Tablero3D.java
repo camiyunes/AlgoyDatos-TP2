@@ -107,11 +107,19 @@ public class Tablero3D {
         return tablero[x][y][z].getDato();
     }
     
+    public Casillero<Ficha> getCasilla(int x, int y, int z) throws Exception {
+    	validarPosicion(x, y, z);
+    	return tablero[x][y][z];
+    }
+    
     // Post: setea un valor en una posición específica
     public void setValor(int x, int y, int z, Ficha valor) throws Exception {
         validarPosicion(x, y, z);
         tablero[x][y][z] = new Casillero<Ficha>(x, y, z);
+        valor.mover(x, y, z);
     }
+    
+    
     
     public void validarPosicion(int x, int y, int z) throws Exception {
     	if (!posicionValida(x, y, z)) { throw new Exception("Índice fuera de los límites."); }
@@ -137,6 +145,15 @@ public class Tablero3D {
 
 	public void anularCasillero(int x, int y, int z) {
 		this.tablero[x][y][z].anular();
+	}
+
+	public void moverFicha(int x0, int y0, int z0, int x1, int y1, int z1) {
+		Ficha ficha = this.tablero[x0][y0][z0].vaciar();
+		this.tablero[x1][y1][z1].setDato(ficha);
+	}
+
+	public void colocarFicha(int x, int y, int z, Ficha ficha) {
+		this.tablero[x][y][z].setDato(ficha);
 	}
 }
 
