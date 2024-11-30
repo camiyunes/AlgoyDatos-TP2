@@ -42,11 +42,13 @@ public class Carta {
 			case "Volver atrás jugada":
 				volverAtras(jugador);
 				break;
+			case "Rehacer jugada":
+				rehacerJugada(jugador);
 			default:
 				System.out.println("Tipo de carta desconocido.");
 		}
 	}
-	
+
 	public void jugarCarta(Tablero3D tablero, int x, int y, int z) throws Exception {  
 		switch (this.getAccion()) {
 			case "Bloquear ficha":
@@ -99,7 +101,12 @@ public class Carta {
 
 	private void volverAtras(Jugador jugador) throws Exception {
 		validarJugador(jugador);
-		jugador.deshacerUltimaJugada();
+		try {
+
+		} catch (Exception e) {
+			System.out.println("");
+		}
+		Main.desapilarJugada(jugador, this.getAccion());
 		System.out.println("Se vuelve atrás la última jugada de " + jugador.getNombre() + ".");
 	}
 
@@ -117,6 +124,11 @@ public class Carta {
 		tablero.validarPosicion(x, y, z);
 		tablero.intercambiarFichas(jugador, x, y, z);
 		System.out.println("Se intercambian dos fichas.");
+	}
+	
+	private void rehacerJugada(Jugador jugador) throws Exception {
+		validarJugador(jugador);
+		Main.desapilarJugada(jugador, this.accion);
 	}
 	
 	public void validarJugador(Jugador jugador) throws Exception {

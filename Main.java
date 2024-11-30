@@ -5,15 +5,23 @@ import java.util.Random;
 
 public class Main {
 	public static void main(String[] args) throws Exception {
+		//inicializo valores iniciales
 		Scanner teclado = new Scanner(System.in);
 		Random random = new Random(System.nanoTime());
 		int largo = 0;
 		int jugadores = 0;
-		Pila<Jugada> pasado = new Pila<Jugada>();
-		Pila<Jugada> futuro = new Pila<Jugada>();
+		Pila<Jugada>[] listaPasada = null;
+		Pila<Jugada>[] listaFutura = null;
+		
+		//defino las acciones
 		String[] acciones = new String[7];
 		acciones[0] = "Perder el turno";
-		
+		acciones[1] = "Bloquear ficha";
+		acciones[2] = "Anular casillero";
+		acciones[3] = "Volver atrás jugada";
+		acciones[4] = "Cambiar color ficha";
+		acciones[5] = "Intercambiar fichas";
+		acciones[6] = "Rehacer jugada";
 
 		Tablero3D tablero = null; // reserva espacio vacio para un tablero
 		System.out.println("Bienvenido al ta-te-ti tridimensional!");
@@ -63,6 +71,9 @@ public class Main {
 			mazoPrincipal.agregarCarta(new Carta(acciones[random.nextInt()]));
 			contCartas++;
 		}
+		//creo las listas de jugadas pasadas y futuras
+		listaPasada = new Pila[jugadores];
+		listaFutura = new Pila[jugadores];
 		
 		// Crear jugadores
 		Jugador[] listaJugadores = new Jugador[jugadores];
@@ -134,6 +145,7 @@ public class Main {
 				Casillero<Ficha> casillero = tablero.getCasilla(x, y, z);
 				Jugada jugada = new Jugada(jugadorActual, casillero, carta, tablero);
 				jugada.realizarJugada();
+				listaPasada[indiceJugador].apilar(jugada);
 			}
 			jugadorActual.reiniciarTurno();
 		}
@@ -168,12 +180,19 @@ public class Main {
         int multiplicador = turnoActual / jugadores;
         return turnoActual - (jugadores * multiplicador);
     }
-	
-	public void deshacerJugada(Pila<Jugada> jugadas, Jugada jugada) {
+
+	public static void desapilarJugada(Jugador jugador, String accion) {
+		// TODO Auto-generated method stub
 		
 	}
-	
-	public void rehacerJugada(Pila<Jugada> jugadas, Jugada jugada) {
+
+	public static void rehacerJugada(Jugador jugador, String accion) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public static void deshacerJugada(Jugador jugador, String accion) {
+		// TODO Auto-generated method stub
 		
 	}
 }
