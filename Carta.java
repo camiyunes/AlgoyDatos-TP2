@@ -103,10 +103,7 @@ public class Carta {
 		validarJugador(jugador);
 		try {
 
-		} catch (Exception e) {
-			System.out.println("");
-		}
-		Main.desapilarJugada(jugador, this.getAccion());
+		} catch (Exception e) { System.out.println("No se pudo deshacer la jugada"); }
 		System.out.println("Se vuelve atrás la última jugada de " + jugador.getNombre() + ".");
 	}
 
@@ -128,7 +125,9 @@ public class Carta {
 	
 	private void rehacerJugada(Jugador jugador) throws Exception {
 		validarJugador(jugador);
-		Main.desapilarJugada(jugador, this.accion);
+		try {
+			
+		}catch (Exception e) { System.out.println("No se pudo deshacer la jugada"); }
 	}
 	
 	public void validarJugador(Jugador jugador) throws Exception {

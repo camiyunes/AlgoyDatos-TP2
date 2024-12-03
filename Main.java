@@ -10,8 +10,7 @@ public class Main {
 		Random random = new Random(System.nanoTime());
 		int largo = 0;
 		int jugadores = 0;
-		Pila<Jugada>[] listaPasada = null;
-		Pila<Jugada>[] listaFutura = null;
+		EventosDelTiempo jugadasADeshacerYRehacer = null;
 		
 		//defino las acciones
 		String[] acciones = new String[7];
@@ -72,8 +71,7 @@ public class Main {
 			contCartas++;
 		}
 		//creo las listas de jugadas pasadas y futuras
-		listaPasada = new Pila[jugadores];
-		listaFutura = new Pila[jugadores];
+		jugadasADeshacerYRehacer = new EventosDelTiempo(jugadores);
 		
 		// Crear jugadores
 		Jugador[] listaJugadores = new Jugador[jugadores];
@@ -145,7 +143,7 @@ public class Main {
 				Casillero<Ficha> casillero = tablero.getCasilla(x, y, z);
 				Jugada jugada = new Jugada(jugadorActual, casillero, carta, tablero);
 				jugada.realizarJugada();
-				listaPasada[indiceJugador].apilar(jugada);
+				jugadasADeshacerYRehacer.apilarPasado(indiceJugador, jugada);
 			}
 			jugadorActual.reiniciarTurno();
 		}
@@ -181,17 +179,15 @@ public class Main {
         return turnoActual - (jugadores * multiplicador);
     }
 
-	public static void desapilarJugada(Jugador jugador, String accion) {
-		// TODO Auto-generated method stub
+	public static void desapilarJugada(Jugador jugador, String accion, EventosDelTiempo jugadas) {
 		
 	}
 
-	public static void rehacerJugada(Jugador jugador, String accion) {
-		// TODO Auto-generated method stub
+	public static void rehacerJugada(Jugador jugador, EventosDelTiempo jugadas) {
 		
 	}
 
-	public static void deshacerJugada(Jugador jugador, String accion) {
+	public static void deshacerJugada(Jugador jugador, EventosDelTiempo jugadas) {
 		// TODO Auto-generated method stub
 		
 	}
